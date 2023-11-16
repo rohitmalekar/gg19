@@ -35,18 +35,18 @@ collector = FeedbackCollector(
 st.set_page_config(
     page_title="GrantsScope",
     page_icon="🔎",
-    layout="wide",
-    initial_sidebar_state="collapsed",
+    # layout="wide",
+    initial_sidebar_state="expanded",
 )
 
 model="gpt-3.5-turbo-16k"
 
 st.title('GrantsScope - GG19')
 st.markdown('Ask away your questions to learn more about the grantees in the GG19 Climate Round. Information on other rounds coming soon! See useful links in the side bar.')
-col1, col2, col3, col4 = st.columns([1,1,1,1])
+col1, col2, col3 = st.columns([1,1,1])
 with col1:
     st.link_button("Explore all projects", "https://explorer.gitcoin.co/#/projects",type="primary")
-#with col2:
+with col2:
     st.link_button("Suppport GrantsScope", "https://explorer.gitcoin.co/#/round/424/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29-195",type="secondary")
 
 
@@ -104,6 +104,7 @@ st.sidebar.markdown("- [Grants Portal](https://grants-portal.gitcoin.co/gitcoin-
 st.sidebar.markdown("- Refresh your [Gitcoin Passport](https://passport.gitcoin.co/) score")
 st.sidebar.markdown("- Review the [GG19 Outline and Strategy](https://gov.gitcoin.co/t/gg19-outline-and-strategy/16682)")
 st.sidebar.markdown("- Understand [Gitcoin Vocabulary](https://gov.gitcoin.co/t/vocabulary-gitcoin-grants-programs-rounds-etc/16773)")
+st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
 
 
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
