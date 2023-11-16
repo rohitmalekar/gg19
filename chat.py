@@ -91,6 +91,7 @@ agent = OpenAIFunctionsAgent(llm=llm, tools=tools, prompt=prompt, )
 agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
+    memory=memory,
     verbose=True,
     return_intermediate_steps=True,
 )
