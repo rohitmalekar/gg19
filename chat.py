@@ -40,6 +40,7 @@ st.set_page_config(
 )
 
 model="gpt-3.5-turbo-16k"
+max_tokens = 14000
 
 st.title('GrantsScope - GG19')
 st.markdown('Ask away your questions to learn more about the grantees in the GG19 Climate Round. Information on other rounds coming soon! See useful links in the side bar.')
@@ -67,7 +68,7 @@ summary_tool = create_retriever_tool(
 
 
 tools = [summary_tool]
-llm = ChatOpenAI(temperature=0, streaming=True, model=model)
+llm = ChatOpenAI(temperature=0, streaming=True, model=model, max_tokens=max_tokens)
 
 message = SystemMessage(
     content=(
