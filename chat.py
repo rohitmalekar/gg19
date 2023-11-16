@@ -48,8 +48,6 @@ st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
 
 @st.cache_resource(ttl="1h")
 
-model = "gpt-3.5-turbo-16k"
-
 st.title('GrantsScope - GG19')
 st.markdown('Ask away your questions to learn more about the grantees in the GG19 Climate Round. Information on other rounds coming soon! See useful links in the side bar.')
 col1, col2, col3 = st.columns([1,1,1])
@@ -72,7 +70,7 @@ summary_tool = create_retriever_tool(
 )
 
 tools = [summary_tool]
-llm = ChatOpenAI(temperature=0, streaming=True, model=model, max_tokens=12500)
+llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", max_tokens=12500)
 memory = AgentTokenBufferMemory(llm=llm, max_token_limit=3000)
 
 message = SystemMessage(
@@ -145,6 +143,6 @@ if prompt := st.chat_input(placeholder=starter_message):
             component="GG19",
             feedback_type="thumbs",
             open_feedback_label="[Optional] Provide additional feedback",
-            model=model,
+            model="gpt-3.5-turbo-16k",
             prompt_id=st.session_state.logged_prompt.id,
         )
