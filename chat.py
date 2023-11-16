@@ -46,7 +46,7 @@ st.sidebar.markdown("- Review the [GG19 Outline and Strategy](https://gov.gitcoi
 st.sidebar.markdown("- Understand [Gitcoin Vocabulary](https://gov.gitcoin.co/t/vocabulary-gitcoin-grants-programs-rounds-etc/16773)")
 st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
 
-@st.cache_resource(ttl="1h")
+
 
 st.title('GrantsScope - GG19')
 st.markdown('Ask away your questions to learn more about the grantees in the GG19 Climate Round. Information on other rounds coming soon! See useful links in the side bar.')
