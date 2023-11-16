@@ -23,12 +23,12 @@ from trubrics.integrations.streamlit import FeedbackCollector
 
 client = Client()
 
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = 
 
 collector = FeedbackCollector(
     project="default",
-    email="rohitmalekar@gmail.com",
-    password="aeiour00",
+    email="",
+    password="",
 )
 
 
