@@ -23,12 +23,12 @@ from trubrics.integrations.streamlit import FeedbackCollector
 
 client = Client()
 
-os.environ['OPENAI_API_KEY'] = 
+os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 
 collector = FeedbackCollector(
     project="default",
-    email="",
-    password="",
+    email=st.secrets["TRUBRICS_EMAIL"],
+    password=st.secrets["TRUBRICS_PWD"],
 )
 
 
@@ -54,7 +54,7 @@ with col1:
 
 
 def configure_retriever():
-    index = './GG19-climate/storage/faiss_index'
+    index = './storage/faiss_index'
     embeddings = OpenAIEmbeddings()    
     vectorstore = FAISS.load_local(index, embeddings)
     return vectorstore.as_retriever()
