@@ -1,5 +1,6 @@
 faiss-cpu
 langchain
+langchain_experimental
 openai
 streamlit
 tiktoken
