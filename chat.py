@@ -47,7 +47,7 @@ st.sidebar.markdown("- Understand [Gitcoin Vocabulary](https://gov.gitcoin.co/t/
 st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
 
 @st.cache_resource(ttl="1h")
-model="gpt-3.5-turbo-16k"
+model = "gpt-3.5-turbo-16k"
 
 st.title('GrantsScope - GG19')
 st.markdown('Ask away your questions to learn more about the grantees in the GG19 Climate Round. Information on other rounds coming soon! See useful links in the side bar.')
