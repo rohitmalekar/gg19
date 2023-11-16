@@ -21,8 +21,6 @@ from langchain.agents.agent_types import AgentType
 from langchain.tools import Tool, tool
 from trubrics.integrations.streamlit import FeedbackCollector
 
-client = Client()
-
 os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 
 collector = FeedbackCollector(
@@ -31,7 +29,7 @@ collector = FeedbackCollector(
     password=st.secrets["TRUBRICS_PWD"],
 )
 
-
+client = Client()
 st.set_page_config(
     page_title="GrantsScope",
     page_icon="🔎",
@@ -39,8 +37,18 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+st.sidebar.markdown("## Important Links:")
+st.sidebar.markdown("- Check out the new [Explorer](https://explorer.gitcoin.co/#/) with improved search")
+st.sidebar.markdown("- GG19 Donation and Leaderboard [Dashboard](https://gitcoin-grants-51f2c0c12a8e.herokuapp.com/)")
+st.sidebar.markdown("- [Grants Portal](https://grants-portal.gitcoin.co/gitcoin-grants-grantee-portal) for how-to videos, resources, and FAQs")
+st.sidebar.markdown("- Refresh your [Gitcoin Passport](https://passport.gitcoin.co/) score")
+st.sidebar.markdown("- Review the [GG19 Outline and Strategy](https://gov.gitcoin.co/t/gg19-outline-and-strategy/16682)")
+st.sidebar.markdown("- Understand [Gitcoin Vocabulary](https://gov.gitcoin.co/t/vocabulary-gitcoin-grants-programs-rounds-etc/16773)")
+st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
+
+@st.cache_resource(ttl="1h")
 model="gpt-3.5-turbo-16k"
-max_tokens = 14000
+max_tokens = 13000
 
 st.title('GrantsScope - GG19')
 st.markdown('Ask away your questions to learn more about the grantees in the GG19 Climate Round. Information on other rounds coming soon! See useful links in the side bar.')
@@ -49,9 +57,6 @@ with col1:
     st.link_button("Explore all projects", "https://explorer.gitcoin.co/#/projects",type="primary")
 with col2:
     st.link_button("Suppport GrantsScope", "https://explorer.gitcoin.co/#/round/424/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29-195",type="secondary")
-
-
-@st.cache_resource(ttl="1h")
 
 
 def configure_retriever():
@@ -66,9 +71,9 @@ summary_tool = create_retriever_tool(
     "Helps search information about grantees in various Gitcoin Rounds, use this tool to respond to questions about specific grantees and projects",
 )
 
-
 tools = [summary_tool]
 llm = ChatOpenAI(temperature=0, streaming=True, model=model, max_tokens=max_tokens)
+memory = AgentTokenBufferMemory(llm=llm, max_token_limit=3000)
 
 message = SystemMessage(
     content=(
@@ -83,7 +88,7 @@ prompt = OpenAIFunctionsAgent.create_prompt(
     extra_prompt_messages=[MessagesPlaceholder(variable_name="history")],
 )
 
-agent = OpenAIFunctionsAgent(llm=llm, tools=tools, prompt=prompt)
+agent = OpenAIFunctionsAgent(llm=llm, tools=tools, prompt=prompt, )
 
 agent_executor = AgentExecutor(
     agent=agent,
@@ -92,21 +97,7 @@ agent_executor = AgentExecutor(
     return_intermediate_steps=True,
 )
 
-
-memory = AgentTokenBufferMemory(llm=llm)
-
 starter_message = "Ask me anything about the grantees in GG19 Climate Round!"
-
-st.sidebar.markdown("## Important Links:")
-
-st.sidebar.markdown("- Check out the new [Explorer](https://explorer.gitcoin.co/#/) with improved search")
-st.sidebar.markdown("- GG19 Donation and Leaderboard [Dashboard](https://gitcoin-grants-51f2c0c12a8e.herokuapp.com/)")
-st.sidebar.markdown("- [Grants Portal](https://grants-portal.gitcoin.co/gitcoin-grants-grantee-portal) for how-to videos, resources, and FAQs")
-st.sidebar.markdown("- Refresh your [Gitcoin Passport](https://passport.gitcoin.co/) score")
-st.sidebar.markdown("- Review the [GG19 Outline and Strategy](https://gov.gitcoin.co/t/gg19-outline-and-strategy/16682)")
-st.sidebar.markdown("- Understand [Gitcoin Vocabulary](https://gov.gitcoin.co/t/vocabulary-gitcoin-grants-programs-rounds-etc/16773)")
-st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
-
 
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
     st.session_state["messages"] = [AIMessage(content=starter_message)]
