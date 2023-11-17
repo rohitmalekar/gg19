@@ -94,7 +94,7 @@ message = SystemMessage(
 
 prompt = OpenAIFunctionsAgent.create_prompt(
     system_message=message,
-    #extra_prompt_messages=[MessagesPlaceholder(variable_name="history")],
+    extra_prompt_messages=[MessagesPlaceholder(variable_name="history")],
 )
 
 agent = OpenAIFunctionsAgent(llm=llm, tools=tools, prompt=prompt, )
@@ -128,11 +128,22 @@ if prompt := st.chat_input(placeholder=starter_message):
     st.session_state.messages.append(HumanMessage(content=prompt))
     
     with st.chat_message("assistant"):
+
+        latest_messages = ""
+        # Capture latest conversation as additional context to the prompt
+        if 'messages' in st.session_state and len(st.session_state.messages) >= 6:
+            latest_messages = st.session_state.messages[-6:]
+        else:
+            latest_messages = st.session_state.messages
+
+        st.markdown("Additional context includes **** " + latest_messages)
+        st.markdown("***")
+
         #st_callback = StreamlitCallbackHandler(st.container())
         stream_handler = StreamHandler(st.empty())
         response = agent_executor(
-            {"input": prompt},
-            #{"input": prompt, "history": st.session_state.messages},
+            #{"input": prompt},
+            {"input": prompt, "history": latest_messages},
             #callbacks=[st_callback],
             callbacks=[stream_handler],
             include_run_info=True,
