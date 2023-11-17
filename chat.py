@@ -83,7 +83,7 @@ discoverer = create_retriever_tool(
 tools = [discoverer]
 
 llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", max_tokens = 10000)
-memory = AgentTokenBufferMemory(llm=llm)
+#memory = AgentTokenBufferMemory(llm=llm)
 
 message = SystemMessage(
     content=(
@@ -121,7 +121,7 @@ for msg in st.session_state.messages:
         st.chat_message("assistant").write(msg.content)
     elif isinstance(msg, HumanMessage):
         st.chat_message("user").write(msg.content)
-    memory.chat_memory.add_message(msg)
+    #memory.chat_memory.add_message(msg)
 
 
 if prompt := st.chat_input(placeholder=starter_message):
