@@ -146,13 +146,20 @@ if prompt := st.chat_input(placeholder=starter_message):
 
         #st_callback = StreamlitCallbackHandler(st.container())
         stream_handler = StreamHandler(st.empty())
-        response = agent_executor(
-            #{"input": prompt},
-            {"input": prompt, "history": latest_messages},
-            #callbacks=[st_callback],
-            callbacks=[stream_handler],
-            include_run_info=True,
-        )
+        
+        try:
+            response = agent_executor(
+                #{"input": prompt},
+                {"input": prompt, "history": latest_messages},
+                #callbacks=[st_callback],
+                callbacks=[stream_handler],
+                include_run_info=True,
+            )
+        except:
+            st.markdown("The dude who made me doesn't have access to models with longer context yet, or, in English, my brain exploded trying to compress all the information needed to answer your question.")
+            st.markdown("Can you please try asking this a little differently and I will try to remain sane!")
+            st.markdown(![Exploding brain meme](https://media.tenor.com/InOgyW0EIEcAAAAC/exploding-brain-mind-blown.gif))
+            
 
     st.session_state.messages.append(AIMessage(content=response["output"]))
     #st.markdown(response["output"])
