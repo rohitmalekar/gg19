@@ -158,7 +158,7 @@ if prompt := st.chat_input(placeholder=starter_message):
         except:
             st.markdown("The dude who made me doesn't have access to models with longer context yet, or, in English, my brain exploded trying to compress all the information needed to answer your question.")
             st.markdown("Can you please try asking this a little differently and I will try to remain sane!")
-            st.markdown(![Exploding brain meme](https://media.tenor.com/InOgyW0EIEcAAAAC/exploding-brain-mind-blown.gif))
+            st.markdown("![Exploding brain meme](https://media.tenor.com/InOgyW0EIEcAAAAC/exploding-brain-mind-blown.gif)")
             
 
     st.session_state.messages.append(AIMessage(content=response["output"]))
