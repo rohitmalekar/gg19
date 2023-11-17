@@ -92,7 +92,7 @@ agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
     memory=memory,
-    verbose=True,
+    verbose=False,
     return_intermediate_steps=True,
 )
 
