@@ -80,7 +80,7 @@ summary_tool = create_retriever_tool(
 )
 
 tools = [summary_tool]
-stream_handler = StreamHandler(st.empty())
+
 llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", callbacks=[stream_handler])
 memory = AgentTokenBufferMemory(llm=llm, max_token_limit=10000)
 
@@ -127,9 +127,11 @@ if prompt := st.chat_input(placeholder=starter_message):
     st.chat_message("user").write(prompt)
     with st.chat_message("assistant"):
         #st_callback = StreamlitCallbackHandler(st.container())
+        stream_handler = StreamHandler(st.empty())
         response = agent_executor(
             {"input": prompt, "history": st.session_state.messages},
             #callbacks=[st_callback],
+            callbacks=[stream_handler],
             include_run_info=True,
         )
 
