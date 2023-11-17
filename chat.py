@@ -82,7 +82,7 @@ discoverer = create_retriever_tool(
 
 tools = [discoverer]
 
-llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", max_tokens = 10000)
+llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
 #memory = AgentTokenBufferMemory(llm=llm)
 
 message = SystemMessage(
@@ -105,7 +105,7 @@ agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
     verbose=False,
-    return_intermediate_steps=True,
+    #return_intermediate_steps=True,
 )
 
 starter_message = "Ask me anything about the grantees in GG19 Rounds (Program Rounds and Climate Solutions Round)!"
