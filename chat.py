@@ -72,7 +72,7 @@ def configure_retriever():
     index = './storage/faiss_index'
     embeddings = OpenAIEmbeddings()    
     vectorstore = FAISS.load_local(index, embeddings)
-    return vectorstore.as_retriever()
+    return vectorstore.as_retriever(search_kwargs={"k": 4})
 
 discoverer = create_retriever_tool(
     configure_retriever(),
