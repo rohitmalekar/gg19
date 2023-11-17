@@ -77,7 +77,7 @@ def configure_retriever_eth_infra():
 
 eth_infra_tool = create_retriever_tool(
     configure_retriever_eth_infra(),
-    "Grantee_Discovery (Eth Infra)",
+    "Eth Infra Grantee",
     "Helps search information about grantees in Eth Infra (Ethereum Core Infrastructure, Research, and Development) Round, use this tool to respond to questions about specific grantees and projects in this round",
 )
 
@@ -90,7 +90,7 @@ def configure_retriever_web3_oss():
 
 web3_oss_tool = create_retriever_tool(
     configure_retriever_web3_oss(),
-    "Grantee_Discovery (Web3 OSS)",
+    "Web3 OSS Grantee",
     "Helps search information about grantees in web3 Open Source Software (OSS) Round, use this tool to respond to questions about specific grantees and projects in this round",
 )
 
