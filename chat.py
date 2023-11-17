@@ -138,10 +138,10 @@ if prompt := st.chat_input(placeholder=starter_message):
             latest_messages = st.session_state.messages
 
         # Debug
-        # st.markdown("Additional context includes **** ")
-        # for msg in latest_messages:
-        #   st.markdown(msg)    
-        # st.markdown("***")
+        st.markdown("Additional context includes **** ")
+        for msg in latest_messages:
+            st.markdown(msg)    
+        st.markdown("***")
 
         #st_callback = StreamlitCallbackHandler(st.container())
         stream_handler = StreamHandler(st.empty())
