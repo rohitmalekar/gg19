@@ -93,7 +93,7 @@ agent_executor = AgentExecutor(
     tools=tools,
     memory=memory,
     verbose=False,
-    return_intermediate_steps=True,
+    return_intermediate_steps=False,
 )
 
 starter_message = "Ask me anything about the grantees in GG19 Climate Round!"
