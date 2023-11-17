@@ -70,8 +70,8 @@ summary_tool = create_retriever_tool(
 )
 
 tools = [summary_tool]
-llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", max_tokens=12500)
-memory = AgentTokenBufferMemory(llm=llm, max_token_limit=3000)
+llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
+memory = AgentTokenBufferMemory(llm=llm)
 
 message = SystemMessage(
     content=(
@@ -123,7 +123,7 @@ if prompt := st.chat_input(placeholder=starter_message):
         
         response = agent_executor(
             {"input": prompt, "history": st.session_state.messages},
-            callbacks=[st_callback],
+            #callbacks=[st_callback],
             include_run_info=True,
         )
 
