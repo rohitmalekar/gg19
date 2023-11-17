@@ -59,7 +59,7 @@ st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
 
 
 st.title('GrantsScope - GG19')
-st.markdown('Ask away your questions to learn more about the grantees in the GG19 Climate Round. Information on other rounds coming soon! See useful links in the side bar.')
+st.markdown('Ask away your questions to learn more about the grantees in GG19 Program Rounds and Climate Solutions Round. Information on other Community and Independent Rounds is coming soon! See useful links in the side bar.')
 col1, col2, col3 = st.columns([1,1,1])
 with col1:
     st.link_button("Explore all projects", "https://explorer.gitcoin.co/#/projects",type="primary")
@@ -106,7 +106,7 @@ agent_executor = AgentExecutor(
     return_intermediate_steps=True,
 )
 
-starter_message = "Ask me anything about the grantees in GG19 Climate Round!"
+starter_message = "Ask me anything about the grantees in GG19 Rounds (Program Rounds and Climate Solutions Round)!"
 
 if "messages" not in st.session_state or st.sidebar.button("Clear message history"):
     st.session_state["messages"] = [AIMessage(content=starter_message)]
