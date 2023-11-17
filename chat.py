@@ -94,7 +94,7 @@ message = SystemMessage(
 
 prompt = OpenAIFunctionsAgent.create_prompt(
     system_message=message,
-    extra_prompt_messages=[MessagesPlaceholder(variable_name="history")],
+    #extra_prompt_messages=[MessagesPlaceholder(variable_name="history")],
 )
 
 agent = OpenAIFunctionsAgent(llm=llm, tools=tools, prompt=prompt, )
@@ -128,7 +128,8 @@ if prompt := st.chat_input(placeholder=starter_message):
         #st_callback = StreamlitCallbackHandler(st.container())
         stream_handler = StreamHandler(st.empty())
         response = agent_executor(
-            {"input": prompt, "history": st.session_state.messages},
+            {"input": prompt},
+            #{"input": prompt, "history": st.session_state.messages},
             #callbacks=[st_callback],
             callbacks=[stream_handler],
             include_run_info=True,
