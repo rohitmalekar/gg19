@@ -56,12 +56,12 @@ with col1:
 with col2:
     st.link_button("Suppport GrantsScope", "https://explorer.gitcoin.co/#/round/424/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29-195",type="secondary")
 
-
+@st.cache_resource(ttl="1h")
 def configure_retriever():
     index = './storage/faiss_index'
     embeddings = OpenAIEmbeddings()    
     vectorstore = FAISS.load_local(index, embeddings)
-    return vectorstore.as_retriever()
+    return vectorstore.as_retriever(search_kwargs={"k": 4})
 
 summary_tool = create_retriever_tool(
     configure_retriever(),
