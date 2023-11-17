@@ -68,33 +68,19 @@ with col2:
 
 @st.cache_resource(ttl="1h")
 
-# Eth Infra
-def configure_retriever_eth_infra():
-    index = './storage/ethinfra-final_index'
+def configure_retriever():
+    index = './storage/faiss_index'
     embeddings = OpenAIEmbeddings()    
     vectorstore = FAISS.load_local(index, embeddings)
     return vectorstore.as_retriever()
 
-eth_infra_tool = create_retriever_tool(
-    configure_retriever_eth_infra(),
-    "Eth_Infra_Grantee",
-    "Helps search information about grantees in Eth Infra (Ethereum Core Infrastructure, Research, and Development) Round, use this tool to respond to questions about specific grantees and projects in this round",
+discoverer = create_retriever_tool(
+    configure_retriever(),
+    "Grantee_Discovery",
+    "Helps search information about grantees in different Rounds for GG19, use this tool to respond to questions about specific grantees and projects across all rounds",
 )
 
-# web3-oss Infra
-def configure_retriever_web3_oss():
-    index = './storage/web3-oss-final_index'
-    embeddings = OpenAIEmbeddings()    
-    vectorstore = FAISS.load_local(index, embeddings)
-    return vectorstore.as_retriever()
-
-web3_oss_tool = create_retriever_tool(
-    configure_retriever_web3_oss(),
-    "Web3_OSS_Grantee",
-    "Helps search information about grantees in web3 Open Source Software (OSS) Round, use this tool to respond to questions about specific grantees and projects in this round",
-)
-
-tools = [eth_infra_tool, web3_oss_tool]
+tools = [discoverer]
 
 llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
 memory = AgentTokenBufferMemory(llm=llm)
