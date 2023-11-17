@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 
+from langchain.callbacks.base import BaseCallbackHandler
 from langchain.document_loaders import RecursiveUrlLoader
 from langchain.document_transformers import Html2TextTransformer
 from langchain.embeddings import OpenAIEmbeddings
