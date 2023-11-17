@@ -123,7 +123,10 @@ for msg in st.session_state.messages:
 
 
 if prompt := st.chat_input(placeholder=starter_message):
+    
     st.chat_message("user").write(prompt)
+    st.session_state.messages.append(HumanMessage(content=prompt))
+    
     with st.chat_message("assistant"):
         #st_callback = StreamlitCallbackHandler(st.container())
         stream_handler = StreamHandler(st.empty())
@@ -137,8 +140,8 @@ if prompt := st.chat_input(placeholder=starter_message):
 
         st.session_state.messages.append(AIMessage(content=response["output"]))
         #st.markdown(response["output"])
-        memory.save_context({"input": prompt}, response)
-        st.session_state["messages"] = memory.buffer
+        #memory.save_context({"input": prompt}, response)
+        #st.session_state["messages"] = memory.buffer
         run_id = response["__run"].run_id
 
     st.session_state.logged_prompt = collector.log_prompt(
