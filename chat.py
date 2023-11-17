@@ -67,19 +67,34 @@ with col2:
     st.link_button("Support GrantsScope in GG19", "https://explorer.gitcoin.co/#/round/424/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29-195",type="secondary")
 
 @st.cache_resource(ttl="1h")
-def configure_retriever():
-    index = './storage/faiss_index'
+
+# Eth Infra
+def configure_retriever_eth_infra():
+    index = './storage/ethinfra-final_index'
     embeddings = OpenAIEmbeddings()    
     vectorstore = FAISS.load_local(index, embeddings)
     return vectorstore.as_retriever()
 
-summary_tool = create_retriever_tool(
-    configure_retriever(),
-    "Grantee_Discovery",
-    "Helps search information about grantees in various Gitcoin Rounds, use this tool to respond to questions about specific grantees and projects",
+eth_infra_tool = create_retriever_tool(
+    configure_retriever_eth_infra(),
+    "Grantee_Discovery (Eth Infra)",
+    "Helps search information about grantees in Eth Infra (Ethereum Core Infrastructure, Research, and Development) Round, use this tool to respond to questions about specific grantees and projects in this round",
 )
 
-tools = [summary_tool]
+# web3-oss Infra
+def configure_retriever_web3_oss():
+    index = './storage/web3-oss-final_index'
+    embeddings = OpenAIEmbeddings()    
+    vectorstore = FAISS.load_local(index, embeddings)
+    return vectorstore.as_retriever()
+
+web3_oss_tool = create_retriever_tool(
+    configure_retriever_web3_oss(),
+    "Grantee_Discovery (Web3 OSS)",
+    "Helps search information about grantees in web3 Open Source Software (OSS) Round, use this tool to respond to questions about specific grantees and projects in this round",
+)
+
+tools = [eth_infra_tool, web3_oss_tool]
 
 llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
 memory = AgentTokenBufferMemory(llm=llm)
