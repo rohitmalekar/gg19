@@ -138,11 +138,11 @@ if prompt := st.chat_input(placeholder=starter_message):
             include_run_info=True,
         )
 
-        st.session_state.messages.append(AIMessage(content=response["output"]))
-        #st.markdown(response["output"])
-        #memory.save_context({"input": prompt}, response)
-        #st.session_state["messages"] = memory.buffer
-        run_id = response["__run"].run_id
+    st.session_state.messages.append(AIMessage(content=response["output"]))
+    #st.markdown(response["output"])
+    #memory.save_context({"input": prompt}, response)
+    #st.session_state["messages"] = memory.buffer
+    run_id = response["__run"].run_id
 
     st.session_state.logged_prompt = collector.log_prompt(
         config_model={"model": "gpt-3.5-turbo-16k"},
@@ -150,11 +150,11 @@ if prompt := st.chat_input(placeholder=starter_message):
         generation=response["output"],
     )
 
-    if st.session_state.logged_prompt:
-        user_feedback = collector.st_feedback(
-            component="GG19",
-            feedback_type="thumbs",
-            open_feedback_label="[Optional] Provide additional feedback",
-            model="gpt-3.5-turbo-16k",
-            prompt_id=st.session_state.logged_prompt.id,
-        )
+if st.session_state.logged_prompt:
+    user_feedback = collector.st_feedback(
+        component="GG19",
+        feedback_type="thumbs",
+        open_feedback_label="[Optional] Provide additional feedback",
+        model="gpt-3.5-turbo-16k",
+        prompt_id=st.session_state.logged_prompt.id,
+    )
