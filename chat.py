@@ -82,7 +82,7 @@ summary_tool = create_retriever_tool(
 tools = [summary_tool]
 
 llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
-memory = AgentTokenBufferMemory(llm=llm
+memory = AgentTokenBufferMemory(llm=llm)
 
 message = SystemMessage(
     content=(
