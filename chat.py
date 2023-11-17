@@ -104,10 +104,6 @@ if "messages" not in st.session_state or st.sidebar.button("Clear message histor
 if "logged_prompt" not in st.session_state:
     st.session_state.logged_prompt = None
 
-def send_feedback(run_id, score):
-    client.create_feedback(run_id, "user_score", score=score)
-
-
 for msg in st.session_state.messages:
     if isinstance(msg, AIMessage):
         st.chat_message("assistant").write(msg.content)
