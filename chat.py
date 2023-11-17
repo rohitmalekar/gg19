@@ -155,23 +155,24 @@ if prompt := st.chat_input(placeholder=starter_message):
                 callbacks=[stream_handler],
                 include_run_info=True,
             )
+
+            st.session_state.messages.append(AIMessage(content=response["output"]))
+            #st.markdown(response["output"])
+            #memory.save_context({"input": prompt}, response)
+            #st.session_state["messages"] = memory.buffer
+            run_id = response["__run"].run_id
+
+            st.session_state.logged_prompt = collector.log_prompt(
+                config_model={"model": "gpt-3.5-turbo-16k"},
+                prompt=prompt,
+                generation=response["output"],
+            )
+
         except:
             st.markdown("The dude who made me doesn't have access to models with longer context yet, or, in English, my brain exploded trying to compress all the information needed to answer your question.")
             st.markdown("Can you please try asking this a little differently and I will try to remain sane!")
             st.markdown("![Exploding brain meme](https://media.tenor.com/InOgyW0EIEcAAAAC/exploding-brain-mind-blown.gif)")
             
-
-    st.session_state.messages.append(AIMessage(content=response["output"]))
-    #st.markdown(response["output"])
-    #memory.save_context({"input": prompt}, response)
-    #st.session_state["messages"] = memory.buffer
-    run_id = response["__run"].run_id
-
-    st.session_state.logged_prompt = collector.log_prompt(
-        config_model={"model": "gpt-3.5-turbo-16k"},
-        prompt=prompt,
-        generation=response["output"],
-    )
 
 if st.session_state.logged_prompt:
     user_feedback = collector.st_feedback(
