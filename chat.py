@@ -128,7 +128,7 @@ if prompt := st.chat_input(placeholder=starter_message):
         #st_callback = StreamlitCallbackHandler(st.container())
         stream_handler = StreamHandler(st.empty())
         response = agent_executor(
-            {"input": prompt, "history": st.session_state.messages[:5000] if len(st.session_state.messages) > 5000 else st.session_state.messages},
+            {"input": prompt, "history": st.session_state.messages},
             #callbacks=[st_callback],
             callbacks=[stream_handler],
             include_run_info=True,
