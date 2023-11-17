@@ -81,7 +81,7 @@ summary_tool = create_retriever_tool(
 
 tools = [summary_tool]
 
-llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", callbacks=[stream_handler])
+llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
 memory = AgentTokenBufferMemory(llm=llm, max_token_limit=10000)
 
 message = SystemMessage(
