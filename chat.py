@@ -37,6 +37,15 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+class StreamHandler(BaseCallbackHandler):
+    def __init__(self, container, initial_text=""):
+        self.container = container
+        self.text = initial_text
+
+    def on_llm_new_token(self, token: str, **kwargs) -> None:
+        self.text += token
+        self.container.markdown(self.text)
+
 st.sidebar.markdown("## Important Links:")
 st.sidebar.markdown("- Check out the new [Explorer](https://explorer.gitcoin.co/#/) with improved search")
 st.sidebar.markdown("- GG19 Donation and Leaderboard [Dashboard](https://gitcoin-grants-51f2c0c12a8e.herokuapp.com/)")
@@ -70,7 +79,7 @@ summary_tool = create_retriever_tool(
 )
 
 tools = [summary_tool]
-llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
+llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", callbacks=[stream_handler])
 memory = AgentTokenBufferMemory(llm=llm, max_token_limit=10000)
 
 message = SystemMessage(
@@ -116,7 +125,7 @@ if prompt := st.chat_input(placeholder=starter_message):
     st.chat_message("user").write(prompt)
     with st.chat_message("assistant"):
         #st_callback = StreamlitCallbackHandler(st.container())
-        
+        stream_handler = StreamHandler(st.empty())
         response = agent_executor(
             {"input": prompt, "history": st.session_state.messages},
             #callbacks=[st_callback],
@@ -124,7 +133,7 @@ if prompt := st.chat_input(placeholder=starter_message):
         )
 
         st.session_state.messages.append(AIMessage(content=response["output"]))
-        st.markdown(response["output"])
+        #st.markdown(response["output"])
         memory.save_context({"input": prompt}, response)
         st.session_state["messages"] = memory.buffer
         run_id = response["__run"].run_id
