@@ -134,7 +134,7 @@ if prompt := st.chat_input(placeholder=starter_message):
         run_id = response["__run"].run_id
 
     st.session_state.logged_prompt = collector.log_prompt(
-        config_model={"model": model},
+        config_model={"model": "gpt-3.5-turbo-16k"},
         prompt=prompt,
         generation=response["output"],
     )
