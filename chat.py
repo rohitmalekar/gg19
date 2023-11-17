@@ -64,7 +64,7 @@ col1, col2, col3 = st.columns([1,1,1])
 with col1:
     st.link_button("Explore all projects", "https://explorer.gitcoin.co/#/projects",type="primary")
 with col2:
-    st.link_button("Suppport GrantsScope", "https://explorer.gitcoin.co/#/round/424/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29-195",type="secondary")
+    st.link_button("Support GrantsScope in GG19", "https://explorer.gitcoin.co/#/round/424/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29-195",type="secondary")
 
 @st.cache_resource(ttl="1h")
 def configure_retriever():
