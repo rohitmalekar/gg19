@@ -115,11 +115,11 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input(placeholder=starter_message):
     st.chat_message("user").write(prompt)
     with st.chat_message("assistant"):
-        st_callback = StreamlitCallbackHandler(st.container())
+        #st_callback = StreamlitCallbackHandler(st.container())
         
         response = agent_executor(
             {"input": prompt, "history": st.session_state.messages},
-            callbacks=[st_callback],
+            #callbacks=[st_callback],
             include_run_info=True,
         )
 
