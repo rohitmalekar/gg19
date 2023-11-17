@@ -137,7 +137,7 @@ if prompt := st.chat_input(placeholder=starter_message):
 
         st.session_state.messages.append(AIMessage(content=response["output"]))
         #st.markdown(response["output"])
-        memory.save_context({"input": prompt}, response["output"])
+        #memory.save_context({"input": prompt}, response)
         st.session_state["messages"] = memory.buffer
         run_id = response["__run"].run_id
 
