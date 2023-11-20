@@ -82,7 +82,7 @@ discoverer = create_retriever_tool(
 
 tools = [discoverer]
 
-llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k")
+llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k", max_tokens=12000)
 #memory = AgentTokenBufferMemory(llm=llm)
 
 message = SystemMessage(
