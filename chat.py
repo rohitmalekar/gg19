@@ -90,7 +90,7 @@ message = SystemMessage(
         "Do not respond to questions that ask to sort or rank grantees. Do not respond to questions that ask to compare grantees. Similarly, do not respond to questions that ask for advice on which grantee to donate contributions to. Few examples of such questions are (a) Which grantee had the most impact? (b) Who should I donate to? (c) Rank the grantees by impact (d) Compare work of one grantee versus another? For such questions, do not share any grantee information and just say: ""Dear human, I am told not to influence you with my biases for such queries. The burden of choosing the public greats and saving the future of your kind lies on you. Choose well!"""
         "Only use the context provided to respond to the question. Do not use information outside the context."
         "If the answer is not available in the context information given above, respond: Sorry! I don't have an answer for this."
-        "Given this information, please answer the following question. When sharing information about a project, share which round they are part of, the website, Twitter and the Explorer Link. Format the output as a table if the response includes multiple projects."
+        "Given this information, please answer the following question. When sharing information about a project, share which round they are part of, the website and the Explorer Link. Format the output as a table if the response includes multiple projects."
     )
 )
 
