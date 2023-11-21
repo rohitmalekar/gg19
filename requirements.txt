@@ -5,4 +5,5 @@ openai
 streamlit
 tiktoken
 trubrics
+streamlit_feedback
 markdown
