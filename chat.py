@@ -56,8 +56,6 @@ st.sidebar.markdown("- Review the [GG19 Outline and Strategy](https://gov.gitcoi
 st.sidebar.markdown("- Understand [Gitcoin Vocabulary](https://gov.gitcoin.co/t/vocabulary-gitcoin-grants-programs-rounds-etc/16773)")
 st.sidebar.markdown("- About [GrantsScope](http://grantsscope.xyz/)")
 
-
-
 st.title('GrantsScope - GG19')
 st.markdown('Ask away your questions to learn more about the grantees in GG19 Program Rounds and Climate Solutions Round. Information on other Community and Independent Rounds is coming soon! See useful links in the side bar.')
 col1, col2, col3 = st.columns([1,1,1])
