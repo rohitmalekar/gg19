@@ -69,7 +69,7 @@ with col2:
 def configure_retriever():
     index = './storage/faiss'
     embeddings = OpenAIEmbeddings()    
-    vectorstore = FAISS.load_local(index, embeddings)
+    vectorstore = FAISS.load_local(index, embeddings,allow_dangerous_deserialization= True )
     return vectorstore.as_retriever(search_kwargs={"k": 4})
 
 discoverer = create_retriever_tool(
