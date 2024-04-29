@@ -34,7 +34,7 @@ collector = FeedbackCollector(
 st.set_page_config(
     page_title="GrantsScope",
     page_icon="🔎",
-    layout="wide"
+    #layout="wide"
 )
 
 class StreamHandler(BaseCallbackHandler):
